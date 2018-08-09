@@ -11,13 +11,13 @@ import hotelReservation.domain.User;
 public class UserFactory
 {
     public static User createUser(String emailAddress,
-                                  String pass,
+                                  String password,
                                   String recoveryQuestion,
                                   String recoveryAnswer)
     {
         User user = new User
                 .Builder( emailAddress )
-                .password( pass )
+                .password( password )
                 .recoveryQuestion(recoveryQuestion)
                 .recoveryAnswer(recoveryAnswer)
                 .build();

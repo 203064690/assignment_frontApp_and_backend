@@ -11,15 +11,15 @@ import hotelReservation.domain.Customer;
 public class CustomerFactory
 {
 
-    public static Customer createCustomer(String IDnumber,
-                                          String firstnames,
-                                          String lastname
+    public static Customer createCustomer(String cust_ID,
+                                          String customer_firstnames,
+                                          String customer_lastname
                                           )
     {
         Customer customer = new Customer
-                .Builder(IDnumber)
-                .customer_firstnames( firstnames )
-                .customer_lastname( lastname )
+                .Builder(cust_ID)
+                .customer_firstnames( customer_firstnames )
+                .customer_lastname( customer_lastname )
                 .build();
         return customer;
     }

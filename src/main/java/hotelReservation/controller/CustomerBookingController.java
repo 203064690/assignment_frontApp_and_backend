@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.*;
  * 8203064690
  */
 @Controller    // This means that this class is a Controller
-@RequestMapping(path="/customeBookingr")
 public class CustomerBookingController {
     @Autowired
     private CustomerBookingService customerBookingService;
 
-    @RequestMapping("/all")
+    @RequestMapping("/customeBooking/all")
     public @ResponseBody
     Iterable<CustomerBooking> getAllcustomerBooking()
     {
         return customerBookingService.getAllCustomerBookings();
     }
 
-    @RequestMapping(path = "/add")
+    @RequestMapping(path = "/customeBooking/add")
     public @ResponseBody String createCustomerBooking (@RequestParam String referenceNumber, @RequestParam String idNumber, @RequestParam String firstNames, @RequestParam String lastName){
         Boolean created;
         created = customerBookingService.createCustomerBooking(referenceNumber, idNumber, firstNames, lastName);
@@ -35,8 +34,8 @@ public class CustomerBookingController {
             return "Customer Booking not created";
     }
 
-    @RequestMapping("/update")
-    public @ResponseBody String updateCustomer ( @RequestBody String referenceNumber){
+    @RequestMapping("/customeBooking/update")
+    public @ResponseBody String updateCustomerBooking ( @RequestBody String referenceNumber){
         Boolean created, created2;
         created = customerBookingService.updateCustomerBooking(referenceNumber);
         if(created==true)
@@ -45,8 +44,8 @@ public class CustomerBookingController {
             return "Customer Booking not updated";
     }
 
-    @RequestMapping(path = "/delete/{referenceNumber}")
-    public String deleteUser (@PathVariable String referenceNumber){
+    @RequestMapping(path = "/customeBooking/delete/{referenceNumber}")
+    public String deleteCustomerBooking (@PathVariable String referenceNumber){
         boolean created;
         created = customerBookingService.deleteCustomerBooking(referenceNumber);
         if(created==true)

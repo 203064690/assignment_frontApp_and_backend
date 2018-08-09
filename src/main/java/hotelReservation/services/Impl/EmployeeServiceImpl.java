@@ -1,6 +1,7 @@
 package hotelReservation.services.Impl;
 
 import hotelReservation.domain.Employee;
+import hotelReservation.factories.EmployeeFactory;
 import hotelReservation.repositories.EmployeeRepo;
 import hotelReservation.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,19 +39,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         boolean blnCreateEmployee;
 
         Iterable<Employee> employees = repositoryEmployee.findAll();
-
+        for (Employee employee : employees) {
+            if (employee.getIDNumber().equalsIgnoreCase(employeeNew.getIDNumber()))
+            {
+                count = count + 1;
+            }
+        }
         System.out.println(" " + count);
         System.out.println(" " + employeeNew.getIDNumber() + " " + employeeNew.getFirstnames() + " " + employeeNew.getLastname());
 
         if (count == 0)
         {
-            Date dateTemp = new Date();
-
-            Employee employee = new Employee.Builder(employeeNew.getIDNumber())
-                    .employee_firstnames(employeeNew.getFirstnames())
-                    .employee_lastname(employeeNew.getLastname())
-                    .hire_date(dateTemp)
-                    .build();
+            Employee employee = EmployeeFactory.createEmployee(employeeNew.getIDNumber(), employeeNew.getFirstnames(), employeeNew.getLastname(), employeeNew.getHireDate());
             repositoryEmployee.save(employee);
             blnCreateEmployee = true;
         }
@@ -63,23 +63,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean createEmployeeGet(String name, String lastName, String ID_number) {
+    public boolean createEmployeeGet(String name, String lastName,  String ID_number) {
         int count = 0;
         boolean blnCreateEmployee;
 
         Iterable<Employee> employees = repositoryEmployee.findAll();
-
-
+        for (Employee employee : employees) {
+            if (employee.getIDNumber().equalsIgnoreCase(ID_number))
+            {
+                count = count + 1;
+            }
+        }
+        System.out.println(" " + count);
+        System.out.println(" " + name + " " + lastName + " " + ID_number);
 
         if (count == 0)
         {
             Date dateTemp = new Date();
-
-            Employee employee = new Employee.Builder(ID_number)
-                    .employee_firstnames(name)
-                    .employee_lastname(lastName)
-                    .hire_date(dateTemp)
-                    .build();
+            Employee employee = EmployeeFactory.createEmployee(ID_number, name, lastName, dateTemp);
             repositoryEmployee.save(employee);
             blnCreateEmployee = true;
         }
@@ -89,6 +90,28 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return blnCreateEmployee;
+    }
+
+    @Override
+    public Employee getEmployee(String ID_number) {
+        boolean blnExistEmployee = false;
+        Employee getEmployee = null;
+
+        Iterable<Employee> employees = repositoryEmployee.findAll();
+        for (Employee employee : employees) {
+            if (employee.getIDNumber().equalsIgnoreCase(ID_number))
+            {
+                getEmployee = employee;
+                blnExistEmployee = true;
+            }
+            else {
+                blnExistEmployee = false;
+                getEmployee =null;
+            }
+        }
+
+
+        return getEmployee;
     }
 
     @Override

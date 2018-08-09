@@ -10,5 +10,4 @@ import org.springframework.data.repository.CrudRepository;
  * 203064690.
  */
 public interface UserRepo extends CrudRepository<User, Long> {
-
 }

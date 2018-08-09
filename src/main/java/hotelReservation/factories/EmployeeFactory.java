@@ -11,15 +11,15 @@ import java.util.Date;
  * 203064690.
  */
 public class EmployeeFactory {
-    public static Employee createEmployee(String employee_ID,
-                                          String firstnames,
-                                          String lastname,
+    public static Employee createEmployee(String ID_number,
+                                          String employee_firstnames,
+                                          String employee_lastname,
                                           Date hire_date)
     {
         Employee employee = new Employee
-                .Builder(employee_ID)
-                .employee_firstnames(firstnames)
-                .employee_lastname(lastname)
+                .Builder(ID_number)
+                .employee_firstnames(employee_firstnames)
+                .employee_lastname(employee_lastname)
                 .hire_date(hire_date)
                 .build();
         return employee;

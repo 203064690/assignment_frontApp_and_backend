@@ -13,20 +13,19 @@ import org.springframework.web.bind.annotation.*;
  * 8203064690
  */
 @Controller    // This means that this class is a Controller
-@RequestMapping(path="/services")
 public class ServicesAndAddOnsController {
 
     @Autowired
     private ServicesAndAddOnsService servicesAndAddOnsService;
 
-    @RequestMapping("/all")
+    @RequestMapping("/services/all")
     public @ResponseBody
-    Iterable<ServicesAndAddOns> getAllcustomer()
+    Iterable<ServicesAndAddOns> getAllservices()
     {
         return servicesAndAddOnsService.getAllServicesAndAddOns();
     }
 
-    @PostMapping(path = "/add")
+    @PostMapping(path = "/services/services/add")
     public @ResponseBody String createServicesAndAddOns (@RequestBody ServicesAndAddOns servicesAndAddOns){
         boolean created;
         created = servicesAndAddOnsService.createServicesAndAddOns(servicesAndAddOns);
@@ -36,7 +35,7 @@ public class ServicesAndAddOnsController {
             return "ServicesAndAddOns not not added";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/services/update")
     public @ResponseBody String updateServicesAndAddOns ( @RequestBody ServicesAndAddOns servicesAndAddOns){
         boolean created, created2;
         created = servicesAndAddOnsService.updateServicesAndAddOns(servicesAndAddOns);
@@ -47,8 +46,8 @@ public class ServicesAndAddOnsController {
             return "ServicesAndAddOns not updated";
     }
 
-    @RequestMapping(path = "/delete/{id}")
-    public String deleteUser (@PathVariable int serv_extras_id){
+    @RequestMapping(path = "/services/delete/{id}")
+    public String deleteServices (@PathVariable int serv_extras_id){
         boolean created;
         created = servicesAndAddOnsService.deleteServicesAndAddOns(serv_extras_id);
         if(created==true)

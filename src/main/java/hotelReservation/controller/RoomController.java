@@ -13,20 +13,19 @@ import org.springframework.web.bind.annotation.*;
  * 8203064690
  */
 @Controller    // This means that this class is a Controller
-@RequestMapping(path="/room")
 public class RoomController {
 
     @Autowired
     private RoomService roomService;
 
-    @RequestMapping("/all")
+    @RequestMapping("/room/all")
     public @ResponseBody
-    Iterable<Room> getAllcustomer()
+    Iterable<Room> getAllroom()
     {
         return roomService.getAllRooms();
     }
 
-    @RequestMapping(path = "/add")
+    @RequestMapping(path = "/room/add")
     public @ResponseBody String createRoom (@RequestParam int roomNumber, @RequestParam String roomType, @RequestParam String roomView, @RequestParam double roomPrice){
         boolean created;
         created = roomService.createRoom(roomNumber, roomType, roomView, roomPrice);
@@ -36,8 +35,8 @@ public class RoomController {
             return "Room not booked";
     }
 
-    @PostMapping("/update")
-    public @ResponseBody String updateCustomer ( @RequestBody Room room){
+    @PostMapping("/room/update")
+    public @ResponseBody String updateRoom ( @RequestBody Room room){
         boolean created, created2;
         created = roomService.updateRoom(room);
 
@@ -47,8 +46,8 @@ public class RoomController {
             return "Room not booked";
     }
 
-    @RequestMapping(path = "/delete/{id}")
-    public String deleteUser (@PathVariable int roomNumber){
+    @RequestMapping(path = "/room/delete/{id}")
+    public String deleteRoom (@PathVariable int roomNumber){
         boolean created;
         created = roomService.deleteRoom(roomNumber);
         if(created==true)

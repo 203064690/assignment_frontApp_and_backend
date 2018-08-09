@@ -18,13 +18,12 @@ import java.util.List;
  * 8203064690
  */
 @Controller    // This means that this class is a Controller
-@RequestMapping(path="/booking")
 public class BookingController {
 
     @Autowired
     private BookingService bookingService;
 
-    @RequestMapping("/all")
+    @RequestMapping("/booking/all")
     public @ResponseBody
     Iterable<Booking> getAllbooking()
     {
@@ -33,7 +32,7 @@ public class BookingController {
 
 
 
-    @RequestMapping(path = "/add")
+    @RequestMapping(path = "/booking/add")
     public @ResponseBody String createBooking(@RequestParam String referenceNumber, @RequestParam List<Room> roomList, @RequestParam List<ServicesAndAddOns> servicesAndAddOnsList, @RequestParam Date hireDate){
         String created;
         created = bookingService.createBooking(referenceNumber, roomList, servicesAndAddOnsList, hireDate);
@@ -41,8 +40,8 @@ public class BookingController {
     }
 
 
-    @RequestMapping(path = "/delete/{id}")
-    public String deleteUser (@PathVariable String id){
+    @RequestMapping(path = "/booking/delete/{id}")
+    public String deleteBooking (@PathVariable String id){
         String created;
         created = bookingService.deleteBooking(id);
         return created;

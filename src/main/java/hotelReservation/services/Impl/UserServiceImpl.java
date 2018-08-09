@@ -32,29 +32,22 @@ public class UserServiceImpl implements UserService {
         return allUsers;
     }
 
+
     @Override
-    public String getUser(String username, String password) {
+    public User getUser(String email) {
         String strUserLogIn = "";
         String strUser = "";
-        String strPass = "";
         int countUser = 0;
-        int countPass = 0;
+        User gotUser = null;
 
         Iterable<User> users = repositoryUser.findAll();
         for (User user : users) {
-            if (user.getEmailAddress().equals(username) & (user.getPassword().equals(password)))
+            if (user.getEmailAddress().equalsIgnoreCase(email))
             {
                 countUser = countUser + 1;
-                countPass = countPass + 1;
+                gotUser = user;
             }
-            else if (user.getEmailAddress().equals(username))
-            {
-                countUser = countUser + 1;
-            }
-            else if (user.getPassword().equals(password))
-            {
-                countPass = countPass + 1;
-            }
+
         }
         if (countUser != 0)
         {
@@ -64,20 +57,13 @@ public class UserServiceImpl implements UserService {
         {
             strUser = "Username: Not Found";
         }
-        if (countPass != 0)
-        {
-            strPass = "Password: Found";
-        }
-        else
-        {
-            strPass = "Password: Not Found";
-        }
 
-        strUserLogIn = strUser + "\n" + strPass;
 
-        return strUserLogIn;
+        strUserLogIn = strUser + "\n";
+
+        return gotUser;
     }
-
+/*
     @Override
     public String newUser(String emailAddress, String password, String recoveryQuestion, String recoveryAnswer) {
 
@@ -108,7 +94,7 @@ public class UserServiceImpl implements UserService {
         else
             return "User not saved";
     }
-
+*/
     @Override
     public String PostnewUser(User userName) {
 
@@ -140,13 +126,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteUser(Long ID) {
+    public String deleteUser(String emailAddress) {
         Long userID = 0L;
         boolean blnDeleteUser = false;
 
         Iterable<User> users = repositoryUser.findAll();
         for (User user : users) {
-            if(user.getID().equals(ID))
+            if(user.getEmailAddress().equalsIgnoreCase(emailAddress))
             {
                 userID = user.getID();
                 blnDeleteUser = true;

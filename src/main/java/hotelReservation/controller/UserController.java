@@ -16,15 +16,19 @@ public class UserController
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/user")
+    @RequestMapping("/user/all")
     public @ResponseBody Iterable<User> getAlluser()
     {
         return userService.getAllUsers();
     }
 
-    @RequestMapping("/user/")
-    public String getUser(@RequestParam String username, @RequestParam String password){
-        return userService.getUser(username, password);
+    @GetMapping(path = "/user/get/{emailAddress}")
+    public String getUserPost (@PathVariable String emailAddress){
+        User getUser = null;
+        String created;
+        getUser =userService.getUser(emailAddress);
+        created =getUser.toString();
+        return created;
     }
 
     @RequestMapping(value ="/user/add_post", method = RequestMethod.POST) // Map ONLY Post Requests
@@ -35,10 +39,10 @@ public class UserController
 
        // created = userService.newUser(name, email);
         userService.PostnewUser(userName);
-        return created2 =userName.getID() + " " + userName.getEmailAddress();
+        return created2 = userName.getEmailAddress();
     }
 
-
+/*
     @RequestMapping(path = "/user/add")
     public @ResponseBody String addNewUser (@RequestParam String email
             , @RequestParam String password, @RequestParam String recoveryQuestion, @RequestParam String recoveryAnswer){
@@ -46,11 +50,11 @@ public class UserController
         created = userService.newUser(email, password, recoveryQuestion, recoveryAnswer);
         return created;
     }
-
-    @RequestMapping(path = "/user/delete/{id}")
-    public String deleteUser (@PathVariable Long id){
+*/
+    @RequestMapping(path = "/user/delete/{emailAddress}")
+    public String deleteUser (@PathVariable String emailAddress){
         String created;
-        created = userService.deleteUser(id);
+        created = userService.deleteUser(emailAddress);
         return created;
     }
 

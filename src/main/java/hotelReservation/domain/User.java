@@ -93,4 +93,15 @@ public class User implements Serializable
         }
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID=" + ID +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", password='" + password + '\'' +
+                ", recoveryQuestion='" + recoveryQuestion + '\'' +
+                ", recoveryAnswer='" + recoveryAnswer + '\'' +
+                '}';
+    }
+
 }

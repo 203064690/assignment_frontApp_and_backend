@@ -23,20 +23,7 @@ public class Employee implements Serializable
     private String ID_number;
     private String employee_firstnames;
     private String employee_lastname;
-
     private Date hire_date;
-
-    private Employee(){}
-
-    public Employee( Builder builder )
-    {
-        ID = builder.ID;
-        ID_number = builder.ID_number;
-        employee_firstnames = builder.employee_firstnames;
-        employee_lastname = builder.employee_lastname;
-
-        hire_date = builder.hire_date;
-    }
 
     public Long getID()
     {
@@ -54,19 +41,31 @@ public class Employee implements Serializable
     {
         return employee_lastname;
     }
-
     public Date getHireDate()
     {
         return hire_date;
     }
+
+    private Employee(){}
+
+    public Employee( Builder builder )
+    {
+        ID = builder.ID;
+        ID_number = builder.ID_number;
+        employee_firstnames = builder.employee_firstnames;
+        employee_lastname = builder.employee_lastname;
+        hire_date = builder.hire_date;
+
+    }
+
     public static class Builder
     {
         private Long ID;
         private String ID_number;
         private String employee_firstnames;
         private String employee_lastname;
-
         private Date hire_date;
+
 
         public Builder( String ID_number )
         {
@@ -99,6 +98,17 @@ public class Employee implements Serializable
         {
             return new Employee( this );
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "ID=" + ID +
+                ", ID_number='" + ID_number + '\'' +
+                ", employee_firstnames='" + employee_firstnames + '\'' +
+                ", employee_lastname='" + employee_lastname + '\'' +
+                ", hire_date=" + hire_date +
+                '}';
     }
 
 }

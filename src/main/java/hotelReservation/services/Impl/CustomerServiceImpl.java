@@ -7,6 +7,9 @@ import hotelReservation.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Assignment 6
  * Domain Driven Design
@@ -19,12 +22,45 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepo repositoryCustomer;
 
     @Override
-    public Iterable<Customer> getAllCustomers() {
-
+    public List<Customer> getAllCustomers() {
+        List<Customer> allCustomers = new ArrayList<>();
 
         Iterable<Customer> customers = repositoryCustomer.findAll();
+        for(Customer customer: customers){
+            allCustomers.add(customer);
+        }
+        return allCustomers;
+    }
 
-        return customers;
+    @Override
+    public Customer getCustomer(String cust_ID) {
+        String strUserLogIn = "";
+        String strCustomer = "";
+        int countCustomer = 0;
+        Customer gotCustomer = null;
+
+        Iterable<Customer> customers = repositoryCustomer.findAll();
+        for (Customer customer : customers) {
+            if (customer.getIDNumber().equals(cust_ID))
+            {
+                countCustomer = countCustomer + 1;
+                gotCustomer= customer;
+            }
+
+        }
+        if (countCustomer != 0)
+        {
+            strCustomer = "Customer: Found";
+        }
+        else
+        {
+            strCustomer = "Customer: Not Found";
+        }
+
+
+        strUserLogIn = strCustomer + "\n";
+
+        return gotCustomer;
     }
 
     @Override
@@ -102,7 +138,7 @@ public class CustomerServiceImpl implements CustomerService {
         boolean blnCreateUser;
         Iterable<Customer> customers = repositoryCustomer.findAll();
         for (Customer customer : customers) {
-            if (customer.getID().equals(newCustomer))
+            if (customer.getID().equals(newCustomer.getIDNumber()))
             {
                 count = count + 1;
             }

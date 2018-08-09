@@ -12,7 +12,8 @@ import java.util.List;
  */
 public interface EmployeeService {
     public List<Employee> getAllEmployees();
-    public boolean createEmployee(Employee employee);
+    public boolean createEmployee(Employee employeeNew);
     public boolean updateEmployee(Employee employee);
-    public boolean createEmployeeGet(String name, String lastName, String ID_number);
+    public Employee getEmployee(String ID_number);
+    public boolean createEmployeeGet(String name, String lastName,  String ID_number);
 }

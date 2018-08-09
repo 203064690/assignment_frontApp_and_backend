@@ -19,7 +19,7 @@ public class Customer implements Serializable
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long ID;
-    private String ID_number;
+    private String cust_ID;
     private String customer_firstnames;
     private String customer_lastname;
 
@@ -30,7 +30,7 @@ public class Customer implements Serializable
     }
     public String getIDNumber()
     {
-        return ID_number;
+        return cust_ID;
     }
     public String getFirstnames()
     {
@@ -46,7 +46,7 @@ public class Customer implements Serializable
     public Customer( Builder builder )
     {
         ID = builder.ID;
-        ID_number = builder.ID_number;
+        cust_ID = builder.cust_ID;
         customer_firstnames = builder.customer_firstnames;
         customer_lastname = builder.customer_lastname;
     }
@@ -55,13 +55,13 @@ public class Customer implements Serializable
     public static class Builder
     {
         private Long ID;
-        private String ID_number;
+        private String cust_ID;
         private String customer_firstnames;
         private String customer_lastname;
 
-        public Builder( String ID_number )
+        public Builder( String cust_ID )
         {
-            this.ID_number = ID_number;
+            this.cust_ID = cust_ID;
         }
         public Builder ID( Long value )
         {
@@ -86,4 +86,29 @@ public class Customer implements Serializable
         }
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "ID=" + ID +
+                ", Customer_ID='" + cust_ID + '\'' +
+                ", Name='" + customer_firstnames + '\'' +
+                ", LastName='" + customer_lastname + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+
+        Customer customer = (Customer) o;
+
+        return !(ID != null ? !ID.equals(customer.ID) : customer.ID != null);
+    }
+    @Override
+    public int hashCode()
+    {
+        return ID != null ? ID.hashCode() : 0;
+    }
 }
