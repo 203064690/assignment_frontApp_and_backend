@@ -31,7 +31,7 @@ public class UserController
         return created;
     }
 
-    @RequestMapping(value ="/user/add_post", method = RequestMethod.POST) // Map ONLY Post Requests
+    @RequestMapping(value = "/login.html", method = RequestMethod.POST) // Map ONLY Post Requests
     public String addUser (@RequestBody User userName) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
@@ -51,7 +51,7 @@ public class UserController
         return created;
     }
 */
-    @RequestMapping(path = "/user/delete/{emailAddress}")
+    @RequestMapping(value = "/user/delete/{emailAddress}", method = RequestMethod.DELETE)
     public String deleteUser (@PathVariable String emailAddress){
         String created;
         created = userService.deleteUser(emailAddress);
