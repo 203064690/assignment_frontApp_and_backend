@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+</head>
+<body>
+<div class="header">
+    <h2>Register</h2>
+</div>
+
+<form method="post" action="register">
+    <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="emailAddress" id="emailAddress">
+    </div>
+    <div class="input-group">
+        <label>Password</label>
+        <input type="password" name="password">
+    </div>
+    <div class="input-group">
+        <label>Recovery Question</label>
+        <input type="text" name="recoveryQuestion"id="recoveryQuestion">
+    </div>
+    <div class="input-group">
+        <label>Recovery Answer</label>
+        <input type="text" name="recoveryAnswer" id="recoveryAnswer">
+    </div>
+    <div class="input-group">
+        <br>
+        <button type="submit" class="btn" name="user">Register</button>
+    </div>
+    <?php
+        if (isset($_POST['user'])) {
+              // receive all input values from the form
+              $recoveryQuestion = mysqli_real_escape_string($DBConnect, $_POST['recoveryQuestion']);
+              $recoveryAnswer = mysqli_real_escape_string($DBConnect, $_POST['recoveryAnswer']);
+              $emailAddress = mysqli_real_escape_string($DBConnect, $_POST['emailAddress']);
+              $password = mysqli_real_escape_string($DBConnect, $_POST['password']);
+
+
+              // form validation: ensure that the form is correctly filled ...
+              // by adding (array_push()) corresponding error unto $errors array
+              if (empty($recoveryQuestion)) { array_push($errors, "Recovery Question is required"); }
+              if (empty($recoveryAnswer)) { array_push($errors, "Recovery answer is required"); }
+              if (empty($emailAddress)) { array_push($errors, "Email is required"); }
+              if (empty($password)) { array_push($errors, "Password is required"); }
+
+              if (count($errors) == 0) {
+
+                  $_SESSION['success'] = "You are registered successfully";
+                  $_SESSION['reg'] = false;
+                    header('location: login');
+                  }
+                  else{
+                      foreach($errors as $error){
+                          echo $error."</br>";
+                }
+                ?><p><a href="login">back</a></p><?php
+                  }
+    ?>
+    <p>
+        Already a member? <a href="login">Sign in</a>
+    </p>
+</form>
+</body>
+</html>

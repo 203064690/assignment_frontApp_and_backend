@@ -20,7 +20,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo repositoryUser;
-
+/*
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+*/
     @Override
     public List<User> getAllUsers() {
         List<User> allUsers = new ArrayList<User>();
@@ -35,6 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String email) {
+
         String strUserLogIn = "";
         String strUser = "";
         int countUser = 0;
@@ -62,6 +66,7 @@ public class UserServiceImpl implements UserService {
         strUserLogIn = strUser + "\n";
 
         return gotUser;
+
     }
 /*
     @Override
@@ -96,7 +101,7 @@ public class UserServiceImpl implements UserService {
     }
 */
     @Override
-    public String PostnewUser(User userName) {
+    public String saveUser(User userName) {
 
         int count = 0;
         boolean blnCreateUser;
@@ -110,6 +115,7 @@ public class UserServiceImpl implements UserService {
 
         if (count == 0)
         {
+            //userName.setPassword(bCryptPasswordEncoder.encode(userName.getPassword()));
             User user = UserFactory.createUser(userName.getEmailAddress(), userName.getPassword(), userName.getRecoveryQuestion(), userName.getRecoveryAnswer());
             repositoryUser.save(user);
             blnCreateUser = true;

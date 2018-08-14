@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Registration system</title>
-    <link rel="stylesheet" type="text/css" href="StyleSheet1.css">
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
 </head>
 <body>
 <div class="header">
     <h2>Login</h2>
 </div>
 
-<form method="post" action="login.html">
-    <?php include('errors.php'); ?>
+<form method="post" action="login">
     <div class="input-group">
         <label>Username</label>
         <input type="text" name="username" >
@@ -24,7 +22,7 @@
         <button type="submit" class="btn" name="login_user">Login</button>
     </div>
     <p>
-        Not yet a member? <a href="register.html">Register</a>
+        Not yet a member? <a href="register">Register</a>
     </p>
 </form>
 </body>

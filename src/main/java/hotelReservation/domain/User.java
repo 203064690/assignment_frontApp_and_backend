@@ -42,7 +42,26 @@ public class User implements Serializable
         return recoveryAnswer;
     }
 
-    private User(){}
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setRecoveryQuestion(String recoveryQuestion) {
+        this.recoveryQuestion = recoveryQuestion;
+    }
+
+    public void setRecoveryAnswer(String recoveryAnswer) {
+        this.recoveryAnswer = recoveryAnswer;
+    }
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public User(){}
 
     public User( Builder builder )
     {

@@ -16,7 +16,7 @@ public interface UserService {
   //  public String newUser(String emailAddress, String password, String recoveryQuestion, String recoveryAnswer);
     public Long ForgottenPassword(String emailAddress);
     public String RecoveryQuestion(Long ID);
-    public String PostnewUser(User userName);
+    public String saveUser(User userName);
     public boolean RecoveryAnswer(String recoveryAnswer, Long ID);
     public String ChangePassword(String password, Long ID);
     public String deleteUser(String emailAddress);
