@@ -9,8 +9,5 @@
         <module name="domain_SpringBoot_Assignment_backend" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="domain_SpringBoot_Assignment_backend" target="1.7" />
-    </bytecodeTargetLevel>
   </component>
 </project>

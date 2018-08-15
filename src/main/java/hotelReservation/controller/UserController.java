@@ -3,8 +3,6 @@ package hotelReservation.controller;
 import hotelReservation.domain.User;
 import hotelReservation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -48,18 +46,19 @@ public class UserController
 
     @RequestMapping(value= {"/login"}, method=RequestMethod.POST)
     public ModelAndView register(User user, BindingResult bindingResult) {
-        ModelAndView model = new ModelAndView();
+
         User userExists = userService.getUser(user.getEmailAddress());
         System.out.println(userExists.toString());
-        if(userExists != null) {
-            bindingResult.getModel();
-            model.addObject("user", userExists);
-            model.setViewName("home/home");
+        if(userExists == null) {
+            bindingResult.rejectValue("user", "User does not exist. Please register");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("user/login");
             return model;
         }
-        else{
-            bindingResult.reject("user", "User does not exist. Please register");
-            model.setViewName("user/login");
+        else {
+            ModelAndView model = new ModelAndView("home/home");
+            model.addObject("user", userExists);
             return model;
         }
 
@@ -67,30 +66,30 @@ public class UserController
     //To register user and return to Login screen
     @RequestMapping(value= {"/register"}, method=RequestMethod.POST)
     public ModelAndView createUser(User user, BindingResult bindingResult) {
-        ModelAndView model = new ModelAndView();
         User userExists = userService.getUser(user.getEmailAddress());
         String created = null;
         if(userExists != null) {
             bindingResult.rejectValue("emailAddress","This email already exists!");
         }
         if(bindingResult.hasErrors()) {
-            model.setViewName("user/register");
+            ModelAndView model = new ModelAndView("user/register");
+            model.addObject(bindingResult.getFieldValue("emailAddress"));
+            return model;
         } else {
             created = userService.saveUser(user);
+            ModelAndView model = new ModelAndView("user/login");
             model.addObject("msg", "User has been registered successfully!");
             model.addObject("user", user);
-            model.setViewName("user/login");
+            System.out.println(user.toString());
+            System.out.println(created);
+            return model;
         }
-        System.out.println(user.toString());
-        System.out.println(created);
-        return model;
     }
 
     @RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
-    public ModelAndView home() {
+    public ModelAndView home(String emailAddress) {
         ModelAndView model = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getUser(auth.getName());
+        User user = userService.getUser(emailAddress);
 
         model.addObject("userName", user.getEmailAddress() + " " + user.getRecoveryQuestion());
         model.setViewName("home/home");

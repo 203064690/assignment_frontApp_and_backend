@@ -5,7 +5,7 @@ import hotelReservation.factories.UserFactory;
 import hotelReservation.repositories.UserRepo;
 import hotelReservation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo repositoryUser;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+   // @Autowired
+    //private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
         if (count == 0)
         {
-            userName.setPassword(bCryptPasswordEncoder.encode(userName.getPassword()));
+            //userName.setPassword(bCryptPasswordEncoder.encode(userName.getPassword()));
             User user = UserFactory.createUser(userName.getEmailAddress(), userName.getPassword(), userName.getRecoveryQuestion(), userName.getRecoveryAnswer());
             repositoryUser.save(user);
             blnCreateUser = true;
