@@ -1,15 +1,51 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Registration</title>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+    <script type ="text/javascript">
+
+        function validationRegistration() {
+
+            var userID = document.registerForm.emailAddress.value;
+            var pinValue = document.registerForm.password.value;
+            var recoveryQ = document.registerForm.recoveryQuestion.value;
+            var recoveryA = document.registerForm.recoveryQuestion.value;
+
+
+            if (userID == null || userID == "") {
+                alert("Please enter username");
+                return false;
+            }
+
+            if (pinValue == null) {
+                alert("Please enter a Pin value");
+                return false;
+            }
+
+            if (recoveryQ == null) {
+                alert("Please enter a Question");
+                return false;
+            }
+
+            if (recoveryA == null) {
+                alert("Please enter a Answer value");
+                return false;
+            }
+            else {
+                alert("User successfully Registered");
+                return true;
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="header">
     <h2>Register</h2>
 </div>
 
-<form method="post" action="register">
+<form name = "registerForm" method="post" action="/register" onsubmit="return validationRegistration()">
     <div class="input-group">
         <label>Email</label>
         <input type="email" name="emailAddress" id="emailAddress">
@@ -30,35 +66,6 @@
         <br>
         <button type="submit" class="btn" name="user">Register</button>
     </div>
-    <?php
-        if (isset($_POST['user'])) {
-              // receive all input values from the form
-              $recoveryQuestion = mysqli_real_escape_string($DBConnect, $_POST['recoveryQuestion']);
-              $recoveryAnswer = mysqli_real_escape_string($DBConnect, $_POST['recoveryAnswer']);
-              $emailAddress = mysqli_real_escape_string($DBConnect, $_POST['emailAddress']);
-              $password = mysqli_real_escape_string($DBConnect, $_POST['password']);
-
-
-              // form validation: ensure that the form is correctly filled ...
-              // by adding (array_push()) corresponding error unto $errors array
-              if (empty($recoveryQuestion)) { array_push($errors, "Recovery Question is required"); }
-              if (empty($recoveryAnswer)) { array_push($errors, "Recovery answer is required"); }
-              if (empty($emailAddress)) { array_push($errors, "Email is required"); }
-              if (empty($password)) { array_push($errors, "Password is required"); }
-
-              if (count($errors) == 0) {
-
-                  $_SESSION['success'] = "You are registered successfully";
-                  $_SESSION['reg'] = false;
-                    header('location: login');
-                  }
-                  else{
-                      foreach($errors as $error){
-                          echo $error."</br>";
-                }
-                ?><p><a href="login">back</a></p><?php
-                  }
-    ?>
     <p>
         Already a member? <a href="login">Sign in</a>
     </p>

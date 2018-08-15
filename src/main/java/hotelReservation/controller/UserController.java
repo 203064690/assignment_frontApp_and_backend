@@ -3,6 +3,8 @@ package hotelReservation.controller;
 import hotelReservation.domain.User;
 import hotelReservation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ public class UserController
         return userService.getAllUsers();
     }
 
+    //To display login screen
     @RequestMapping(value= {"/", "/login"}, method =RequestMethod.GET)
     public ModelAndView login(){
 
@@ -43,27 +46,56 @@ public class UserController
         return model;
     }
 
+    @RequestMapping(value= {"/login"}, method=RequestMethod.POST)
+    public ModelAndView register(User user, BindingResult bindingResult) {
+        ModelAndView model = new ModelAndView();
+        User userExists = userService.getUser(user.getEmailAddress());
+        System.out.println(userExists.toString());
+        if(userExists != null) {
+            bindingResult.getModel();
+            model.addObject("user", userExists);
+            model.setViewName("home/home");
+            return model;
+        }
+        else{
+            bindingResult.reject("user", "User does not exist. Please register");
+            model.setViewName("user/login");
+            return model;
+        }
+
+    }
+    //To register user and return to Login screen
     @RequestMapping(value= {"/register"}, method=RequestMethod.POST)
     public ModelAndView createUser(User user, BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
         User userExists = userService.getUser(user.getEmailAddress());
-
+        String created = null;
         if(userExists != null) {
-            bindingResult.rejectValue("email", "error.user", "This email already exists!");
+            bindingResult.rejectValue("emailAddress","This email already exists!");
         }
         if(bindingResult.hasErrors()) {
             model.setViewName("user/register");
         } else {
-            userService.saveUser(user);
+            created = userService.saveUser(user);
             model.addObject("msg", "User has been registered successfully!");
-            model.addObject("user", new User());
-            model.setViewName("user/register");
+            model.addObject("user", user);
+            model.setViewName("user/login");
         }
         System.out.println(user.toString());
-
+        System.out.println(created);
         return model;
     }
 
+    @RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
+    public ModelAndView home() {
+        ModelAndView model = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUser(auth.getName());
+
+        model.addObject("userName", user.getEmailAddress() + " " + user.getRecoveryQuestion());
+        model.setViewName("home/home");
+        return model;
+    }
 
     @RequestMapping(value= {"/access_denied"}, method=RequestMethod.GET)
     public ModelAndView accessDenied() {

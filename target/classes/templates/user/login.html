@@ -1,22 +1,45 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Registration system</title>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+    <script language="JavaScript" type ="text/javascript">
+
+        function validationLogin() {
+            results = true;
+            var userID = document.getElementById("emailAddress");
+            var pinValue = document.getElementById("password");
+
+            if (userID == null || userID == "") {
+                alert("Please enter username");
+                results = false
+                return results;
+            }
+
+            if (pinValue == null) {
+                alert("Please enter a Pin value");
+                results = false
+                return results;
+            }
+
+            return results;
+        };
+    </script>
 </head>
 <body>
 <div class="header">
     <h2>Login</h2>
 </div>
 
-<form method="post" action="login">
+<form name ="userLoginForm" onsubmit ="return validationLogin('results')" method ="post" action="login" id = "userLoginForm">
     <div class="input-group">
         <label>Username</label>
-        <input type="text" name="username" >
+        <input type="text" name="emailAddress" id = "emailAddress" required>
     </div>
     <div class="input-group">
         <label>Password</label>
-        <input type="password" name="password">
+        <input type="password" name="password" id = "password" required>
     </div>
     <div class="input-group">
         <button type="submit" class="btn" name="login_user">Login</button>
