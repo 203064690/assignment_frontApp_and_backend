@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Registration system</title>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
@@ -33,9 +34,13 @@
 </div>
 
 <form name ="userLoginForm" onsubmit ="return validationLogin('results')" method ="post" action="login" id = "userLoginForm">
+    <div class="success">
+        <h2><span th:utext="*{msg}"></span></h2>
+    </div>
     <div class="input-group">
         <label>Username</label>
-        <input type="text" name="emailAddress" id = "emailAddress" required>
+        <input path="emailAddress" type="text" name="emailAddress" id = "emailAddress" required>
+        <span th:utext="*{emailAddress}" style="color: #a94442"></span>
     </div>
     <div class="input-group">
         <label>Password</label>

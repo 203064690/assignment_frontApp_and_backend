@@ -9,11 +9,48 @@
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
 </head>
 <body>
-<?php
-?>
-<div class="input-group">
-    <h2>Hi <span th:utext="${user}"></span>, this is the home page.</h2>
-    <a th:href="@{/login}">Sign out</a>
+<div class="header">
+    <h2>Home</h2>
 </div>
+<?php
+    if (isset($_SESSION['user.toString()'])) :
+?>
+<form name ="homeForm" method ="post" action="home" id = "homeForm">
+    <div class="success">
+        <span th:utext="*{msg}"></span>
+    </div>
+        <div>
+            <br>
+        <div class="input-group">
+            <a href="view_customer" class="btn">View Customers List</a>
+        </div>
+            <br>
+        <div class="input-group">
+            <a href="view_booking" class="btn">View Bookings List</a>
+        </div>
+            <br>
+        <div class="input-group">
+            <a href="view_employees" class="btn">View Employees List</a>
+            <br>
+        </div>
+        </div>
+        <div>
+            <br>
+        <div class="input-group">
+            <a href="add_customer" class="btn">Add Customers</a>
+        </div>
+            <br>
+        <div class="input-group">
+            <a href="add_employee" class="btn">Add Employee</a>
+        </div>
+        <br>
+        <div class="input-group">
+            <a href="create_bookings" class="btn">Create Bookings</a>
+        </div>
+            <br>
+        </div>
+        <a th:href="@{/login}">Sign out</a>
+    </div>
+</form>
 </body>
 </html>

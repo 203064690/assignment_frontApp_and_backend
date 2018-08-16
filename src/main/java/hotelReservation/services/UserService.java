@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface UserService {
     public List<User> getAllUsers();
-    public User getUser(String email);
+    public User getUser(String email, String password);
   //  public String newUser(String emailAddress, String password, String recoveryQuestion, String recoveryAnswer);
     public Long ForgottenPassword(String emailAddress);
     public String RecoveryQuestion(Long ID);

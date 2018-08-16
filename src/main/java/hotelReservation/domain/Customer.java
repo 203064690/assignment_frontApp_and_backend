@@ -1,7 +1,10 @@
 package hotelReservation.domain;
 
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -41,7 +44,23 @@ public class Customer implements Serializable
         return customer_lastname;
     }
 
-    private Customer(){}
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public void setCust_ID(String cust_ID) {
+        this.cust_ID = cust_ID;
+    }
+
+    public void setCustomer_firstnames(String customer_firstnames) {
+        this.customer_firstnames = customer_firstnames;
+    }
+
+    public void setCustomer_lastname(String customer_lastname) {
+        this.customer_lastname = customer_lastname;
+    }
+
+    public Customer(){}
 
     public Customer( Builder builder )
     {

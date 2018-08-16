@@ -132,7 +132,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String PostNewCustomer(Customer newCustomer) {
+    public String saveCustomer(Customer newCustomer) {
 
         int count = 0;
         boolean blnCreateUser;

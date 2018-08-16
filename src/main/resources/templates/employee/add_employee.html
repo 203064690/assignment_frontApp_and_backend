@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form="" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Employee Details</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+
+</head>
+<body>
+<div class="header">
+    <h2>Employee Details</h2>
+</div>
+
+<form name = "customerForm" method="post" action="/add_employee">
+    <div class="input-group">
+        <label>Identifier</label>
+        <input type="text" name="ID_number" id="ID_number" required>
+        <span th:utext="${emailAddress}"></span>
+    </div>
+    <div class="input-group">
+        <label>First Name</label>
+        <input type="text" name="employee_firstnames" id="employee_firstnames"required>
+    </div>
+    <div class="input-group">
+        <label>Last Name</label>
+        <input type="text" name="employee_lastname"id="employee_lastname" required>
+    </div>
+    <div class="input-group">
+        <label>Employment Date</label>
+        <input type="text" name="hire_date"id="hire_date" required>
+    </div>
+    <div class="input-group">
+        <br>
+        <button type="submit" class="btn" name="user">Register</button> <input type="button" value="Cancel!" onclick="history.back()">
+    </div>
+</form>
+</body>
+</html>

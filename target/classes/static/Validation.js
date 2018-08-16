@@ -1,4 +1,3 @@
-
 function validationCheck() {
 
         var userID = document.userLoginForm.username.value;
