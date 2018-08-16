@@ -11,8 +11,12 @@
 <body>
 <?php
 ?>
-<div class="input-group">
-    <h2>Hi <span th:utext="${user}"></span>, this is the home page.</h2>
+<div class="success">
+    <span th:utext="*{msg}"></span>
+</div>
+    <div class="input-group">
+    <span th:utext="${user.toString()}"></span>, this is the home page.
+    </div>
     <a th:href="@{/login}">Sign out</a>
 </div>
 </body>

@@ -1,11 +1,8 @@
 package hotelReservation.domain;
 
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.UniqueElements;
-
-import javax.annotation.processing.Messager;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 
 /**
@@ -15,6 +12,7 @@ import java.io.Serializable;
  * 203064690.
  */
 @Entity
+@Table(name="user")
 public class User implements Serializable
 {
     @Id
@@ -23,7 +21,7 @@ public class User implements Serializable
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long ID;
-    @UniqueElements(message = "Username does not exist")
+    @Email(message = "User does not exist")
     private String emailAddress;
     private String password;
     private String recoveryQuestion;

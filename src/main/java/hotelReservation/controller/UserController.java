@@ -3,17 +3,18 @@ package hotelReservation.controller;
 import hotelReservation.domain.User;
 import hotelReservation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * Hello world!
  *
  */
 
-@Controller
+@RestController
 public class UserController
 {
     @Autowired
@@ -37,43 +38,45 @@ public class UserController
     @RequestMapping(value= {"/register"}, method=RequestMethod.GET)
     public ModelAndView register() {
         ModelAndView model = new ModelAndView();
-        User user = new User();
-        model.addObject("user", user);
         model.setViewName("user/register");
 
         return model;
     }
 
     @RequestMapping(value= {"/login"}, method=RequestMethod.POST)
-    public ModelAndView register(User user, BindingResult bindingResult) {
+    public ModelAndView register(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
 
-        User userExists = userService.getUser(user.getEmailAddress());
-        System.out.println(userExists.toString());
+        User userExists = userService.getUser(user.getEmailAddress(), user.getPassword());
+        //System.out.println(userExists.toString());
         if(userExists == null) {
-            bindingResult.rejectValue("user", "User does not exist. Please register");
+            bindingResult.rejectValue("emailAddress", "User does not exist. Please register");
+
         }
         if(bindingResult.hasErrors()) {
             ModelAndView model = new ModelAndView("user/login");
+            model.addObject("emailAddress", "User does not exist, Please register");
             return model;
         }
+
         else {
             ModelAndView model = new ModelAndView("home/home");
             model.addObject("user", userExists);
+            model.addObject("msg", "You are now logged in!");
             return model;
         }
 
     }
     //To register user and return to Login screen
     @RequestMapping(value= {"/register"}, method=RequestMethod.POST)
-    public ModelAndView createUser(User user, BindingResult bindingResult) {
-        User userExists = userService.getUser(user.getEmailAddress());
+    public ModelAndView createUser(@ModelAttribute("User") User user, BindingResult bindingResult) {
+        User userExists = userService.getUser(user.getEmailAddress(), user.getPassword());
         String created = null;
         if(userExists != null) {
             bindingResult.rejectValue("emailAddress","This email already exists!");
         }
         if(bindingResult.hasErrors()) {
             ModelAndView model = new ModelAndView("user/register");
-            model.addObject(bindingResult.getFieldValue("emailAddress"));
+            model.addObject("emailAddress", "This email already exists!");
             return model;
         } else {
             created = userService.saveUser(user);
@@ -85,24 +88,24 @@ public class UserController
             return model;
         }
     }
-
+/*
     @RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
-    public ModelAndView home(String emailAddress) {
+    public ModelAndView home(String emailAddress, String password) {
         ModelAndView model = new ModelAndView();
-        User user = userService.getUser(emailAddress);
+        User user = userService.getUser(emailAddress, password);
 
         model.addObject("userName", user.getEmailAddress() + " " + user.getRecoveryQuestion());
         model.setViewName("home/home");
         return model;
     }
-
+*/
     @RequestMapping(value= {"/access_denied"}, method=RequestMethod.GET)
     public ModelAndView accessDenied() {
         ModelAndView model = new ModelAndView();
         model.setViewName("errors/access_denied");
         return model;
     }
-
+/*
     @GetMapping(path = "/user/get/{emailAddress}")
     public String getUserPost (@PathVariable String emailAddress){
         User getUser = null;
@@ -111,6 +114,7 @@ public class UserController
         created =getUser.toString();
         return created;
     }
+    */
 /*
     @RequestMapping(value = "/login", method = RequestMethod.POST) // Map ONLY Post Requests
     public String addUser (@RequestBody User userName) {
@@ -132,6 +136,7 @@ public class UserController
         return created;
     }
 */
+/*
     @RequestMapping(value = "/user/delete/{emailAddress}", method = RequestMethod.DELETE)
     public String deleteUser (@PathVariable String emailAddress){
         String created;
@@ -145,5 +150,6 @@ public class UserController
         created = userService.ChangePassword(password, id);
         return created;
     }
+    */
 
 }

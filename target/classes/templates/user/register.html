@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form="" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Registration</title>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
@@ -11,10 +11,11 @@
     <h2>Register</h2>
 </div>
 
-<form name = "registerForm" method="post" action="/register">
+<form name = "register" method="post" action="/register">
     <div class="input-group">
         <label>Email</label>
         <input type="email" name="emailAddress" id="emailAddress" required>
+        <span th:utext="${emailAddress}"></span>
     </div>
     <div class="input-group">
         <label>Password</label>

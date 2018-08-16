@@ -38,33 +38,50 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User getUser(String email) {
+    public User getUser(String email, String password) {
 
         String strUserLogIn = "";
         String strUser = "";
+        String strPass = "";
         int countUser = 0;
+        int countPass = 0;
         User gotUser = null;
 
         Iterable<User> users = repositoryUser.findAll();
         for (User user : users) {
-            if (user.getEmailAddress().equalsIgnoreCase(email))
+            if (user.getEmailAddress().equalsIgnoreCase(email)&& user.getPassword().equals(password))
             {
                 countUser = countUser + 1;
+                countPass = countPass + 1;
                 gotUser = user;
             }
-
-        }
+            else if (user.getEmailAddress().equals(email))
+            {
+                countUser = countUser + 1;
+            }
+            else if (user.getPassword().equals(password))
+            {
+                countPass = countPass + 1;
+            }
+    }
         if (countUser != 0)
-        {
-            strUser = "Username: Found";
-        }
+    {
+        strUser = "Username: Found";
+    }
         else
-        {
-            strUser = "Username: Not Found";
-        }
+    {
+        strUser = "Username: Not Found";
+    }
+        if (countPass != 0)
+    {
+        strPass = "Password: Found";
+    }
+        else
+    {
+        strPass = "Password: Not Found";
+    }
 
-
-        strUserLogIn = strUser + "\n";
+    strUserLogIn = strUser + "\n" + strPass;
 
         return gotUser;
 
