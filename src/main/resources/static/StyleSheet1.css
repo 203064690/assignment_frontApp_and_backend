@@ -90,3 +90,13 @@ input[type="radio"] + div:hover {
 input[type="radio"]:checked + div {
     background:gray;
 }
+
+table {
+  border: 1px solid black;
+  width: 100%;
+}
+th, td{
+  height: 50px;
+  border: 1px solid black;
+  align-content: center;
+}

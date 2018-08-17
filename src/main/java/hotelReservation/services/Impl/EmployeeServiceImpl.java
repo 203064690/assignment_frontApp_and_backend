@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,35 +61,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return blnCreateEmployee;
     }
 
-    @Override
-    public boolean createEmployeeGet(String name, String lastName,  String ID_number) {
-        int count = 0;
-        boolean blnCreateEmployee;
-
-        Iterable<Employee> employees = repositoryEmployee.findAll();
-        for (Employee employee : employees) {
-            if (employee.getIDNumber().equalsIgnoreCase(ID_number))
-            {
-                count = count + 1;
-            }
-        }
-        System.out.println(" " + count);
-        System.out.println(" " + name + " " + lastName + " " + ID_number);
-
-        if (count == 0)
-        {
-            Date dateTemp = new Date();
-            Employee employee = EmployeeFactory.createEmployee(ID_number, name, lastName, dateTemp);
-            repositoryEmployee.save(employee);
-            blnCreateEmployee = true;
-        }
-        else
-        {
-            blnCreateEmployee = false;
-        }
-
-        return blnCreateEmployee;
-    }
 
     @Override
     public Employee getEmployee(String ID_number) {

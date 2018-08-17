@@ -3,7 +3,12 @@ package hotelReservation.controller;
 import hotelReservation.domain.Employee;
 import hotelReservation.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Assignment 6
@@ -17,31 +22,54 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping("/employee/all")
-    public @ResponseBody Iterable<Employee> getAllEmployee()
-    {
-        return employeeService.getAllEmployees();
+    @RequestMapping(value={"/view_employees"}, method = RequestMethod.GET)
+    public ModelAndView getAllEmployees(){
+        List<Employee> allEmployees = new ArrayList<>();
+        Iterable<Employee> allEmployees2 = employeeService.getAllEmployees();
+        for(Employee employee : allEmployees2){
+            allEmployees.add(employee);
+        }
+
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("reports/employ_report");
+        model.addObject("reports", allEmployees);
+        model.addObject("msg", "Employee");
+        return model;
     }
 
-    @GetMapping(path = "/employee/get/{ID_number}")
-    public String getEmployee (@PathVariable String ID_number){
-        Employee getEmp = null;
-        String created;
-        getEmp =employeeService.getEmployee(ID_number);
-        created =getEmp.toString();
-        return created;
+    //To display login screen
+    @RequestMapping(value= {"/add_employee"}, method =RequestMethod.GET)
+    public ModelAndView customer(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("employee/add_employee");
+        return model;
     }
-/*
-    @GetMapping(path = "/employee/create")
-    public @ResponseBody String createEmployee_get (@RequestParam String name, @RequestParam String lastName, @RequestParam String ID_number){
-        Boolean created;
-        created = employeeService.createEmployeeGet(name, lastName, ID_number);
-        if(created==true)
-            return "Employee created";
-        else
-            return "Employee not created";
+
+    //To register user and return to Login screen
+    @RequestMapping(value= {"/add_employee"}, method=RequestMethod.POST)
+    public ModelAndView createEmployee(@ModelAttribute("Employee") Employee employee, BindingResult bindingResult) {
+
+        Employee employeeExists = employeeService.getEmployee(employee.getIDNumber());
+        boolean created;
+        if(employeeExists != null) {
+            bindingResult.rejectValue("msg","Employee already exists!");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("employee/add_employee");
+            model.addObject("msg", "Employee already exists!");
+            return model;
+        } else {
+            created = employeeService.createEmployee(employee);
+            Employee employeeDetails = employeeService.getEmployee(employee.getIDNumber());
+            ModelAndView model = new ModelAndView("home/home");
+            model.addObject("msg", "Employee has been registered successfully!");
+            model.addObject("employee", employeeDetails);
+            return model;
+        }
     }
-*/
+
     @RequestMapping(method = RequestMethod.POST, value ="/employee/post")
     public String createEmployeePost(@RequestBody Employee employee){
         Boolean created;

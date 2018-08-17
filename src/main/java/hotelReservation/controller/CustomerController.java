@@ -3,7 +3,12 @@ package hotelReservation.controller;
 import hotelReservation.domain.Customer;
 import hotelReservation.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dylanb on 2018/08/06.
@@ -14,10 +19,54 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping("/customer/all")
-    public Iterable<Customer> getAllcustomer()
-    {
-        return customerService.getAllCustomers();
+    @RequestMapping(value={"/view_customer"}, method = RequestMethod.GET)
+    public ModelAndView getAllCustomer(){
+        List<Customer> allCustomers = new ArrayList<>();
+        Iterable<Customer> allCustomers2 = customerService.getAllCustomers();
+        for(Customer customer : allCustomers2){
+            allCustomers.add(customer);
+        }
+
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("reports/cust_report");
+        model.addObject("reports", allCustomers);
+        model.addObject("msg", "Customer");
+        return model;
+    }
+
+    //To display login screen
+    @RequestMapping(value= {"/add_customer"}, method =RequestMethod.GET)
+    public ModelAndView customer(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("customer/add_customer");
+        return model;
+    }
+
+    //To register user and return to Login screen
+    @RequestMapping(value= {"/add_customer"}, method=RequestMethod.POST)
+    public ModelAndView createCustomer(@ModelAttribute("customer") Customer customer, BindingResult bindingResult) {
+        Customer customerExists = customerService.getCustomer(customer.getIDNumber());
+        System.out.println(customer.toString());
+        String created = null;
+        if(customerExists != null) {
+            bindingResult.rejectValue("msg","Customer already exists!");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("customer/add_customer");
+            model.addObject("msg", "Customer already exists!");
+            return model;
+        } else {
+            created = customerService.saveCustomer(customer);
+            Customer customerDetails = customerService.getCustomer(customer.getIDNumber());
+            ModelAndView model = new ModelAndView("home/home");
+            model.addObject("msg", "Customer has been registered successfully!");
+            model.addObject("customer", customerDetails);
+            System.out.println(customer.toString());
+            System.out.println(created);
+            return model;
+        }
     }
 
     @GetMapping(path = "/customer/get/{cust_ID}")
@@ -27,17 +76,6 @@ public class CustomerController {
         getCustomer =customerService.getCustomer(cust_ID);
         created =getCustomer.toString();
         return created;
-    }
-
-    @RequestMapping(value ="/customer/add_post", method = RequestMethod.POST) // Map ONLY Post Requests
-    public String addCustomer (@RequestBody Customer customer) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-        String created;
-
-        // created = userService.newUser(name, email);
-        return created = customerService.PostNewCustomer(customer);
-
     }
 
 /*

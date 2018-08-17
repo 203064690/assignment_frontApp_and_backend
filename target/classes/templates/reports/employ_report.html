@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form="" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+    <title>Customer Details</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+    <title>Title</title>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var msgReceivec = [[${msg}]];
+        function getVariable(){
+            if (msgReceivec == null) {
+                document.getElementById("demo").innerHTML = "";
+            }else{
+                document.getElementById("demo").innerHTML = msgReceivec;
+
+            }
+        }
+
+        /*]]>*/
+    </script>
+
+</head>
+<body onload="getVariable()">
+<div class="header">
+    <h2><p id="demo"></p>  Report</h2>
+</div>
+<table id="myTableId" dt:table="true" class="table">
+    <thead>
+    <tr class="header">
+        <th>No</th>
+        <th>Id</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Hire Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="report: ${reports}" align="center">
+        <td th:text="${report.ID}" />
+        <td th:text="${report.getIDNumber()}" />
+        <td th:text="${report.getFirstnames()}" />
+        <td th:text="${report.getLastname()}" />
+        <td th:text="${report.getHireDate()}" />
+    </tr>
+    </tbody>
+</table>
+<br/>
+<input type="button" class="btn" value="Cancel" onclick="history.back()">
+</body>
+</html>

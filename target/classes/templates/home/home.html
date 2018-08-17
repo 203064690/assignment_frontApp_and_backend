@@ -7,17 +7,64 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var msgReceivec = [[${msg}]];
+        function getVariable(){
+            if (msgReceivec == null) {
+                document.getElementById("demo").innerHTML = "";
+            }else{
+                document.getElementById("demo").innerHTML = msgReceivec;
+
+            }
+        }
+
+        /*]]>*/
+    </script>
+
 </head>
-<body>
-<?php
-?>
-<div class="success">
-    <span th:utext="*{msg}"></span>
+<body onload="getVariable()">
+
+<div class="header">
+    <h2>Home</h2>
 </div>
-    <div class="input-group">
-    <span th:utext="${user.toString()}"></span>, this is the home page.
+<form name ="homeForm" method ="post" action="home" id = "homeForm">
+    <div class="success">
+        <p id="demo"></p>
     </div>
-    <a th:href="@{/login}">Sign out</a>
-</div>
+        <div>
+            <br>
+        <div class="input-group">
+            <a href="view_customer" class="btn">View Customers List</a>
+        </div>
+            <br>
+        <div class="input-group">
+            <a href="view_booking" class="btn">View Bookings List</a>
+        </div>
+            <br>
+        <div class="input-group">
+            <a href="view_employees" class="btn">View Employees List</a>
+            <br>
+        </div>
+        </div>
+        <div>
+            <br>
+        <div class="input-group">
+            <a href="add_customer" class="btn">Add Customers</a>
+        </div>
+            <br>
+        <div class="input-group">
+            <a href="add_employee" class="btn">Add Employee</a>
+        </div>
+        <br>
+        <div class="input-group">
+            <a href="create_bookings" class="btn">Create Bookings</a>
+        </div>
+            <br>
+        </div>
+        <a th:href="@{/login}">Sign out</a>
+    </div>
+</form>
 </body>
 </html>

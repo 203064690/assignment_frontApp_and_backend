@@ -15,6 +15,6 @@ public interface CustomerService {
     public Customer getCustomer(String id);
     public String createCustomer(String idNumber, String firstNames, String lastName);
     public String updateCustomer(Customer customer);
-    public String PostNewCustomer(Customer newCustomer);
+    public String saveCustomer(Customer newCustomer);
     public String deleteCustomer(String idNumber);
 }

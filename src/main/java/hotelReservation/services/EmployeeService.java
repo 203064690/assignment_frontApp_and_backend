@@ -15,5 +15,4 @@ public interface EmployeeService {
     public boolean createEmployee(Employee employeeNew);
     public boolean updateEmployee(Employee employee);
     public Employee getEmployee(String ID_number);
-    public boolean createEmployeeGet(String name, String lastName,  String ID_number);
 }

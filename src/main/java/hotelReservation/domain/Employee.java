@@ -3,7 +3,7 @@ package hotelReservation.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.text.ParseException;
 
 /**
  * Assignment 6
@@ -23,7 +23,29 @@ public class Employee implements Serializable
     private String ID_number;
     private String employee_firstnames;
     private String employee_lastname;
-    private Date hire_date;
+    private String hire_date;
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public void setID_number(String ID_number) {
+        this.ID_number = ID_number;
+    }
+
+    public void setEmployee_firstnames(String employee_firstnames) {
+        this.employee_firstnames = employee_firstnames;
+    }
+
+    public void setEmployee_lastname(String employee_lastname) {
+        this.employee_lastname = employee_lastname;
+    }
+
+    public void setHire_date(String date) throws ParseException {
+
+        this.hire_date = date;
+    }
+
 
     public Long getID()
     {
@@ -41,12 +63,12 @@ public class Employee implements Serializable
     {
         return employee_lastname;
     }
-    public Date getHireDate()
+    public String getHireDate()
     {
         return hire_date;
     }
 
-    private Employee(){}
+    public Employee(){}
 
     public Employee( Builder builder )
     {
@@ -64,7 +86,7 @@ public class Employee implements Serializable
         private String ID_number;
         private String employee_firstnames;
         private String employee_lastname;
-        private Date hire_date;
+        private String hire_date;
 
 
         public Builder( String ID_number )
@@ -87,8 +109,7 @@ public class Employee implements Serializable
             return this;
         }
 
-        public Builder hire_date( Date value )
-        {
+        public Builder hire_date( String value ) {
             this.hire_date = value;
             return this;
         }

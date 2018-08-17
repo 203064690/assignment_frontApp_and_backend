@@ -80,9 +80,10 @@ public class UserController
             return model;
         } else {
             created = userService.saveUser(user);
+            User userDetails = userService.getUser(user.getEmailAddress(), user.getPassword());
             ModelAndView model = new ModelAndView("user/login");
             model.addObject("msg", "User has been registered successfully!");
-            model.addObject("user", user);
+            model.addObject("user", userDetails.toString());
             System.out.println(user.toString());
             System.out.println(created);
             return model;

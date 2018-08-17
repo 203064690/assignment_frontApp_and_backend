@@ -2,8 +2,6 @@ package hotelReservation.factories;
 
 import hotelReservation.domain.Employee;
 
-import java.util.Date;
-
 /**
  * Assignment 6
  * Domain Driven Design
@@ -14,8 +12,7 @@ public class EmployeeFactory {
     public static Employee createEmployee(String ID_number,
                                           String employee_firstnames,
                                           String employee_lastname,
-                                          Date hire_date)
-    {
+                                          String hire_date){
         Employee employee = new Employee
                 .Builder(ID_number)
                 .employee_firstnames(employee_firstnames)
