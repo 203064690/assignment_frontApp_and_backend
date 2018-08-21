@@ -51,11 +51,11 @@ public class CustomerController {
         System.out.println(customer.toString());
         String created = null;
         if(customerExists != null) {
-            bindingResult.rejectValue("msg","Customer already exists!");
+            bindingResult.rejectValue("cust_ID","Customer already exists!");
         }
         if(bindingResult.hasErrors()) {
             ModelAndView model = new ModelAndView("customer/add_customer");
-            model.addObject("msg", "Customer already exists!");
+            model.addObject("cust_ID", "Customer already exists!");
             return model;
         } else {
             created = customerService.saveCustomer(customer);
@@ -69,37 +69,69 @@ public class CustomerController {
         }
     }
 
-    @GetMapping(path = "/customer/get/{cust_ID}")
-    public String getCustomer (@PathVariable String cust_ID){
-        Customer getCustomer = null;
-        String created;
-        getCustomer =customerService.getCustomer(cust_ID);
-        created =getCustomer.toString();
-        return created;
+    //To view delete screen
+    @RequestMapping(value= {"/delete_customer"}, method = RequestMethod.GET)
+    public ModelAndView viewDelete(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("customer/delete_customer");
+        return model;
     }
 
-/*
-    @RequestMapping(path = "/customer/add")
-    public @ResponseBody String createCustomer (@RequestParam String id
-            , @RequestParam String firstName, @RequestParam String lastName){
-        String created;
-        created = customerService.createCustomer(id, firstName, lastName);
-        return created;
+    //To delete room
+    @RequestMapping(value= {"/delete_customer"}, method=RequestMethod.POST)
+    public ModelAndView deleteCustomer(@ModelAttribute("Customer") Customer customer, BindingResult bindingResult) {
+        String result;
+        Customer studentExists = customerService.getCustomer(customer.getIDNumber());
+        if(studentExists == null) {
+            bindingResult.rejectValue("cust_ID", "Customer does not exist");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("customer/delete_customer");
+            model.addObject("cust_ID", "Customer does not exist");
+            return model;
+        }
+
+        else {
+
+            result =customerService.deleteCustomer(customer.getIDNumber());
+            ModelAndView model = new ModelAndView("home/home");
+            model.addObject("msg", "Customer was deleted!");
+            return model;
+        }
+
     }
-*/
-    @RequestMapping(path = "/customer/delete/{id}")
-    public String deleteCustomer (@PathVariable String id){
-        String created;
-        created = customerService.deleteCustomer(id);
-        return created;
+    //To view edit room
+    @RequestMapping(value= {"/edit_customer"}, method = RequestMethod.GET)
+    public ModelAndView viewEditRoom(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("customer/edit_customer");
+        return model;
     }
 
-    @RequestMapping("/customer/update")
-    public @ResponseBody String updateCustomer ( @RequestBody Customer customer){
-        String created, created2;
-        created = customerService.updateCustomer(customer);
-        created2 = customer.getIDNumber() + " "+ customer.getFirstnames()+ " "+ customer.getLastname();
-        return created2;
+    //To update Room
+    @RequestMapping(value= {"/edit_customer"}, method=RequestMethod.POST)
+    public ModelAndView updateRoom(@ModelAttribute("Customer") Customer customer, BindingResult bindingResult) {
+        String result;
+        Customer roomExists = customerService.getCustomer(customer.getIDNumber());
+        if(roomExists == null) {
+            bindingResult.rejectValue("msg", "Customer does not exist");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("customer/edit_customer");
+            model.addObject("msg", "Customer does not exist");
+            return model;
+        }
+
+        else {
+            result = customerService.updateCustomer(customer);
+            ModelAndView model = new ModelAndView("home/home");
+            model.addObject("msg", "Customer was updated!");
+            System.out.println(result);
+            return model;
+        }
+
     }
 
 

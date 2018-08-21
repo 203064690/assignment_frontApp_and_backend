@@ -22,19 +22,15 @@ public class Room implements Serializable {
     private Long ID;
     @ManyToOne
     private Booking booking;
+
+
     private int room_number;
     private String room_type;
     private String room_view;
     private double room_price;
 
-    private Room() {}
-    public Room(Builder builder) {
-        ID = builder.ID;
-        room_number = builder.room_number;
-        room_type = builder.room_type;
-        room_view = builder.room_view;
-        room_price = builder.room_price;
-    }
+    public Room() {}
+
 
     public Long getID()
     {
@@ -55,6 +51,38 @@ public class Room implements Serializable {
 
     public double getRoomPrice() {
         return room_price;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    public void setRoom_number(int room_number) {
+        this.room_number = room_number;
+    }
+
+    public void setRoom_type(String room_type) {
+        this.room_type = room_type;
+    }
+
+    public void setRoom_view(String room_view) {
+        this.room_view = room_view;
+    }
+
+    public void setRoom_price(double room_price) {
+        this.room_price = room_price;
+    }
+
+    public Room(Builder builder){
+        ID = builder.ID;
+        room_number = builder.room_number;
+        room_type = builder.room_type;
+        room_view = builder.room_view;
+        room_price = builder.room_price;
     }
 
     public static class Builder
@@ -97,5 +125,15 @@ public class Room implements Serializable {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "ID=" + ID +
+                ", room_number='" + room_number + '\'' +
+                ", room_type='" + room_type + '\'' +
+                ", room_view='" + room_view + '\'' +
+                ", room_price=" + room_price +
+                '}';
+    }
 
 }

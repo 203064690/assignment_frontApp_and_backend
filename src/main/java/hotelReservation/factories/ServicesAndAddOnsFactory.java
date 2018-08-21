@@ -10,14 +10,14 @@ import hotelReservation.domain.ServicesAndAddOns;
  */
 public class ServicesAndAddOnsFactory
 {
-    public static ServicesAndAddOns createServicesAndAddOns(int serv_ext_id,
-                                                            String ext_name,
-                                                            double pr_added )
+    public static ServicesAndAddOns createServicesAndAddOns(int serv_extras_id,
+                                                            String extra_name,
+                                                            double price_added )
     {
         ServicesAndAddOns services_and_addons = new ServicesAndAddOns
-                .Builder( serv_ext_id )
-                .extra_name( ext_name )
-                .price_added( pr_added )
+                .Builder( serv_extras_id )
+                .extra_name( extra_name )
+                .price_added( price_added )
                 .build();
 
         return services_and_addons;

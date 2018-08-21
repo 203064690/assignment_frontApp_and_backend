@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form="" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Booking Details</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+
+</head>
+<body>
+<div class="header">
+    <h2>Booking Details</h2>
+</div>
+
+<form name = "bookingForm" method="post" action="add_booking">
+    <div class="input-group">
+        <label>Reference Number</label>
+        <input type="text" name="reference_number" id="reference_number" required>
+        <span th:utext="${reference_number}"></span>
+    </div>
+    <div class="input-group">
+        <label>Room number</label>
+        <select name="rooms" id="rooms" th:field="*{room_list}" required>
+            <option value="">Select Room</option>
+            <option th:each="room : ${room_list}" th:value="${room}" th:text="${room.getRoomNumber()}"></option>
+        </select>
+    </div>
+    <div class="input-group">
+        <label>Add on</label>
+        <select name="services_and_addons" id="services_and_addons" th:field="*{services_list}" required>
+            <option value="">Select Service</option>
+            <option th:each="service : ${services_list}" th:value="${service}" th:text="${service.getServExtraID()}"></option>
+        </select>
+    </div>
+    <div class="input-group">
+        <label>Date</label>
+        <input type="date" name="hireDate"id="hireDate" required>
+    </div>
+    <div class="input-group">
+        <br>
+        <button type="submit" class="btn" name="booking">Enter</button>      <a href="home" class="btn">back</a>
+    </div>
+</form>
+</body>
+</html>

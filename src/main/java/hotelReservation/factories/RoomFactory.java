@@ -10,16 +10,16 @@ import hotelReservation.domain.Room;
  */
 public class RoomFactory
 {
-    public static Room createRoom(int rm_num,
-                                  String rm_type,
-                                  String rm_view,
-                                  double rm_price )
+    public static Room createRoom(int room_number,
+                                  String room_type,
+                                  String room_view,
+                                  double room_price )
     {
         Room room = new Room
-                .Builder( rm_num )
-                .room_type( rm_type )
-                .room_view( rm_view )
-                .room_price( rm_price )
+                .Builder( room_number )
+                .room_type( room_type )
+                .room_view( room_view )
+                .room_price( room_price )
                 .build();
 
         return room;

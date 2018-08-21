@@ -1,27 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
-
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        var msgReceivec = [[${msg}]];
-        function getVariable(){
-            if (msgReceivec == null) {
-                document.getElementById("demo").innerHTML = "";
-            }else{
-                document.getElementById("demo").innerHTML = msgReceivec;
-
-            }
-        }
-
-        /*]]>*/
-    </script>
+    <script src="/js/handleForm.js" th:inline="javascript"></script>
 
 </head>
 <body onload="getVariable()">
@@ -29,9 +12,9 @@
 <div class="header">
     <h2>Home</h2>
 </div>
-<form name ="homeForm" method ="post" action="home" id = "homeForm">
+<form name ="homeForm" method ="post" action="home" id = "homeForm" onclick="getVariable()">
     <div class="success">
-        <p id="demo"></p>
+        <h2><span th:utext="*{msg}"></span></h2>
     </div>
         <div>
             <br>
@@ -48,21 +31,24 @@
             <br>
         </div>
         </div>
-        <div>
             <br>
         <div class="input-group">
-            <a href="add_customer" class="btn">Add Customers</a>
+            <a href="add_customer" class="btn">Add Customers</a>        <a href="edit_customer" class="btn">Edit Customers</a>         <a href="delete_customer" class="btn">Delete Customers</a>
         </div>
             <br>
         <div class="input-group">
-            <a href="add_employee" class="btn">Add Employee</a>
+            <a href="add_employee" class="btn">Add Employee</a>         <a href="edit_employee" class="btn">Edit Employee</a>         <a href="delete_employee" class="btn">Delete Employee</a>
         </div>
         <br>
         <div class="input-group">
-            <a href="create_bookings" class="btn">Create Bookings</a>
+            <a href="add_room" class="btn">Add Room</a>         <a href="edit_room" class="btn">Edit Room</a>         <a href="delete_room" class="btn">Delete Room</a>
+        </div>
+        <br>
+        <div class="input-group">
+            <a href="add_booking" class="btn">Create Bookings</a>          <a href="add_ons" class="btn">Create Add Services</a>
         </div>
             <br>
-        </div>
+        <div>
         <a th:href="@{/login}">Sign out</a>
     </div>
 </form>

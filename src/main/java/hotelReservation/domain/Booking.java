@@ -29,16 +29,8 @@ public class Booking implements Serializable
     private List<ServicesAndAddOns> services_and_addons;
     private Date hireDate;
 
-    private Booking(){}
+    public Booking(){}
 
-    public Booking( Builder builder )
-    {
-        ID = builder.ID;
-        reference_number = builder.reference_number;
-        rooms = builder.rooms;
-        services_and_addons = builder.services_and_addons;
-        hireDate = builder.hireDate;
-    }
     public Long getID()
     {
         return this.ID;
@@ -58,6 +50,35 @@ public class Booking implements Serializable
     public Date getDate()
     {
         return hireDate;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public void setReference_number(String reference_number) {
+        this.reference_number = reference_number;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public void setServices_and_addons(List<ServicesAndAddOns> services_and_addons) {
+        this.services_and_addons = services_and_addons;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public Booking(Builder builder )
+    {
+        ID = builder.ID;
+        reference_number = builder.reference_number;
+        rooms = builder.rooms;
+        services_and_addons = builder.services_and_addons;
+        hireDate = builder.hireDate;
     }
 
     public static class Builder
@@ -102,4 +123,14 @@ public class Booking implements Serializable
         }
     }
 
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "ID=" + ID +
+                ", reference_number='" + reference_number + '\'' +
+                ", rooms='" + rooms + '\'' +
+                ", services_and_addons='" + services_and_addons + '\'' +
+                ", hireDate=" + hireDate +
+                '}';
+    }
 }

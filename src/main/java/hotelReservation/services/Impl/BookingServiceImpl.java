@@ -35,6 +35,28 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public Booking getBooking(String reference) {
+        boolean blnExistBooking = false;
+        Booking getBooking = null;
+
+        Iterable<Booking> bookings = repositoryBooking.findAll();
+        for (Booking booking : bookings) {
+            if (booking.getReferenceNumber().equalsIgnoreCase(reference))
+            {
+                getBooking = booking;
+                blnExistBooking = true;
+            }
+            else {
+                blnExistBooking = false;
+                getBooking =null;
+            }
+        }
+
+
+        return getBooking;
+    }
+
+    @Override
     public String createBooking(String referenceNumber, List<Room> roomList, List<ServicesAndAddOns> servicesAndAddOnsList, Date hireDate) {
         int count = 0;
         boolean blnCreateBooking;

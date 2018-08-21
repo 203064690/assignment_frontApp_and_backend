@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form=""
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">>
+<head>
+    <title>Edit Room</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+    <script src="js/Validation.js"></script>
+</head>
+<body>
+<div class="header">
+    <h2>Room details</h2>
+</div>
+
+<form name = "edit_employee" method="post" action="edit_employee">
+    <div class="input-group">
+        <label>Enter Employee Number</label>
+        <input type="text" name="ID_number" id="ID_number" placeholder="Employee no..." required>
+        <span th:utext="${msg}" style="color: #a94442"></span>
+    </div>
+    <div class="input-group">
+        <label>Employee Name</label>
+        <input type="text" name="employee_firstnames" id="employee_firstnames" required>
+    </div>
+    <div class="input-group">
+        <label>Employee LastName</label>
+        <input type="text" name="employee_lastname" id="employee_lastname"required>
+    </div>
+    <div class="input-group">
+        <label>Hire Date</label>
+        <input type="text" name="hire_date"id="hire_date" required>
+    </div>
+    <div class="input-group">
+        <button type="submit" class="btn" name="edit_employee">Enter</button>
+    </div>
+    <div class="input-group">
+        <br>
+        <a href="home" class="btn">Back</a>
+    </div>
+</form>
+</body>
+</html>

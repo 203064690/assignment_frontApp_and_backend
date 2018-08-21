@@ -25,7 +25,7 @@ public class ServicesAndAddOns implements Serializable
     private String extra_name;
     private double price_added;
 
-    private ServicesAndAddOns(){}
+    public ServicesAndAddOns(){}
 
     public ServicesAndAddOns( Builder builder )
     {
@@ -34,6 +34,27 @@ public class ServicesAndAddOns implements Serializable
         extra_name = builder.extra_name;
         price_added = builder.price_added;
     }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    public void setServ_extras_id(int serv_extras_id) {
+        this.serv_extras_id = serv_extras_id;
+    }
+
+    public void setExtra_name(String extra_name) {
+        this.extra_name = extra_name;
+    }
+
+    public void setPrice_added(double price_added) {
+        this.price_added = price_added;
+    }
+
     public Long getID()
     {
         return ID;
@@ -83,6 +104,16 @@ public class ServicesAndAddOns implements Serializable
         {
             return new ServicesAndAddOns( this );
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "ID=" + ID +
+                ", serv_extras_id='" + serv_extras_id + '\'' +
+                ", extra_name='" + extra_name + '\'' +
+                ", price_added='" + price_added + '\'' +
+                '}';
     }
 
 }

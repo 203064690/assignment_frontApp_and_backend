@@ -11,11 +11,11 @@
     <h2>Employee Details</h2>
 </div>
 
-<form name = "customerForm" method="post" action="/add_employee">
+<form name = "employeeForm" method="post" action="/add_employee">
     <div class="input-group">
         <label>Identifier</label>
         <input type="text" name="ID_number" id="ID_number" required>
-        <span th:utext="${msg}"></span>
+        <span th:utext="${ID_number}"></span>
     </div>
     <div class="input-group">
         <label>First Name</label>
@@ -31,7 +31,7 @@
     </div>
     <div class="input-group">
         <br>
-        <button type="submit" class="btn" name="employee" onclick="myFunction()">Register</button> <input type="button" class="btn" value="Cancel!" onclick="history.back()">
+        <button type="submit" class="btn" name="employee" onclick="myFunction()">Enter</button>      <a href="home" class="btn">back</a>
     </div>
 </form>
 </body>

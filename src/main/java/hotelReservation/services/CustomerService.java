@@ -13,7 +13,6 @@ import java.util.List;
 public interface CustomerService {
     public List<Customer> getAllCustomers();
     public Customer getCustomer(String id);
-    public String createCustomer(String idNumber, String firstNames, String lastName);
     public String updateCustomer(Customer customer);
     public String saveCustomer(Customer newCustomer);
     public String deleteCustomer(String idNumber);

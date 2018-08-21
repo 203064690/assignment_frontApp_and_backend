@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form=""
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">>
+<head>
+    <title>Edit Room</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+        <script src="js/Validation.js"></script>
+</head>
+<body>
+<div class="header">
+    <h2>Room details</h2>
+</div>
+
+<form name = "edit_room" method="post" action="edit_room">
+    <div class="input-group">
+        <label>Enter Room Number</label>
+        <input type="text" name="room_number" id="room_number" placeholder="Room no..." required>
+        <span th:utext="${msg}" style="color: #a94442"></span>
+    </div>
+    <div class="input-group">
+        <label>Room Type</label>
+        <input type="text" name="room_type" id="room_type" required>
+    </div>
+    <div class="input-group">
+        <label>Room View</label>
+        <input type="text" name="room_view" id="room_view"required>
+    </div>
+    <div class="input-group">
+        <label>Room Price</label>
+        <input type="text" name="room_price"id="room_price" required>
+    </div>
+    <div class="input-group">
+        <button type="submit" class="btn" name="edit_room">Enter</button>
+    </div>
+    <div class="input-group">
+        <br>
+        <a href="home" class="btn">Back</a>
+    </div>
+</form>
+</body>
+</html>

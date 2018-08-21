@@ -3,8 +3,9 @@ package hotelReservation.controller;
 import hotelReservation.domain.ServicesAndAddOns;
 import hotelReservation.services.ServicesAndAddOnsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Assignment 6
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * Dylan Baadjies
  * 8203064690
  */
-@Controller    // This means that this class is a Controller
+@RestController    // This means that this class is a Controller
 public class ServicesAndAddOnsController {
 
     @Autowired
@@ -25,34 +26,33 @@ public class ServicesAndAddOnsController {
         return servicesAndAddOnsService.getAllServicesAndAddOns();
     }
 
-    @PostMapping(path = "/services/services/add")
-    public @ResponseBody String createServicesAndAddOns (@RequestBody ServicesAndAddOns servicesAndAddOns){
+    //To display login screen
+    @RequestMapping(value= {"/add_ons"}, method =RequestMethod.GET)
+    public ModelAndView add_ons(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("addOn/add_ons");
+        return model;
+    }
+
+    //To register user and return to Login screen
+    @RequestMapping(value= {"/add_ons"}, method=RequestMethod.POST)
+    public ModelAndView createService(@ModelAttribute("ServicesAndAddOns") ServicesAndAddOns servicesAndAddOns, BindingResult bindingResult) {
+        ServicesAndAddOns serviceExists = servicesAndAddOnsService.getServicesAndAddOns(servicesAndAddOns.getServExtraID());
         boolean created;
-        created = servicesAndAddOnsService.createServicesAndAddOns(servicesAndAddOns);
-        if(created==true)
-            return "ServicesAndAddOns added";
-        else
-            return "ServicesAndAddOns not not added";
+        if(serviceExists != null) {
+            bindingResult.rejectValue("serv_extras_id","Service already exists!");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("addOn/add_ons");
+            model.addObject("serv_extras_id", "Service already exists!");
+            return model;
+        } else {
+            created = servicesAndAddOnsService.createServicesAndAddOns(servicesAndAddOns);
+            ModelAndView model = new ModelAndView("home/home");
+            model.addObject("msg", "Service has been added!");
+            return model;
+        }
     }
 
-    @PostMapping("/services/update")
-    public @ResponseBody String updateServicesAndAddOns ( @RequestBody ServicesAndAddOns servicesAndAddOns){
-        boolean created, created2;
-        created = servicesAndAddOnsService.updateServicesAndAddOns(servicesAndAddOns);
-
-        if(created==true)
-            return "ServicesAndAddOns updated";
-        else
-            return "ServicesAndAddOns not updated";
-    }
-
-    @RequestMapping(path = "/services/delete/{id}")
-    public String deleteServices (@PathVariable int serv_extras_id){
-        boolean created;
-        created = servicesAndAddOnsService.deleteServicesAndAddOns(serv_extras_id);
-        if(created==true)
-            return "ServicesAndAddOns Deleted";
-        else
-            return "ServicesAndAddOns not deleted";
-    }
 }

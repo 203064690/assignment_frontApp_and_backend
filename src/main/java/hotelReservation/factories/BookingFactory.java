@@ -16,15 +16,15 @@ import java.util.List;
  */
 public class BookingFactory{
 
-    public static Booking createBooking(String ref_num,
+    public static Booking createBooking(String reference_number,
                                         List<Room> rooms,
-                                        List<ServicesAndAddOns> servicesAndAddOnslist,
+                                        List<ServicesAndAddOns> services_and_addons,
                                         Date hireDate)
     {
         Booking booking = new Booking
-                .Builder(ref_num)
+                .Builder(reference_number)
                 .rooms(rooms)
-                .services_and_addons(servicesAndAddOnslist)
+                .services_and_addons(services_and_addons)
                 .hireDate(hireDate)
                 .build();
         return booking;

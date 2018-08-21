@@ -24,6 +24,8 @@ public class CustomerBookingController {
         return customerBookingService.getAllCustomerBookings();
     }
 
+
+
     @RequestMapping(path = "/customeBooking/add")
     public @ResponseBody String createCustomerBooking (@RequestParam String referenceNumber, @RequestParam String idNumber, @RequestParam String firstNames, @RequestParam String lastName){
         Boolean created;

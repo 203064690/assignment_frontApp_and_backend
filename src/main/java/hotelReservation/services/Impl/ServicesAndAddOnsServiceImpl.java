@@ -33,6 +33,28 @@ public class ServicesAndAddOnsServiceImpl implements ServicesAndAddOnsService {
     }
 
     @Override
+    public ServicesAndAddOns getServicesAndAddOns(int service_id) {
+        boolean blnExistService = false;
+        ServicesAndAddOns getService = null;
+
+        Iterable<ServicesAndAddOns> services = repositoryServicesAndAddOns.findAll();
+        for (ServicesAndAddOns service : services) {
+            if (service.getServExtraID()==service_id)
+            {
+                getService = service;
+                blnExistService = true;
+            }
+            else {
+                blnExistService = false;
+                getService =null;
+            }
+        }
+
+
+        return getService;
+    }
+
+    @Override
     public boolean createServicesAndAddOns(ServicesAndAddOns servicesAndAddOnsNew) {
         int count = 0;
         boolean blnCreateServicesAndAddOn ;
@@ -45,7 +67,7 @@ public class ServicesAndAddOnsServiceImpl implements ServicesAndAddOnsService {
         }
         if (count == 0)
         {
-            ServicesAndAddOns servicesAndAddOns = ServicesAndAddOnsFactory.createServicesAndAddOns(0, "Mini Bar", 200);
+            ServicesAndAddOns servicesAndAddOns = ServicesAndAddOnsFactory.createServicesAndAddOns(servicesAndAddOnsNew.getServExtraID(), servicesAndAddOnsNew.getExtraName(), servicesAndAddOnsNew.getPriceAdded());
             repositoryServicesAndAddOns.save(servicesAndAddOns);
             blnCreateServicesAndAddOn = true;
         }

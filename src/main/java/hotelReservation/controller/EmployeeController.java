@@ -54,11 +54,11 @@ public class EmployeeController {
         Employee employeeExists = employeeService.getEmployee(employee.getIDNumber());
         boolean created;
         if(employeeExists != null) {
-            bindingResult.rejectValue("msg","Employee already exists!");
+            bindingResult.rejectValue("ID_number","Employee already exists!");
         }
         if(bindingResult.hasErrors()) {
             ModelAndView model = new ModelAndView("employee/add_employee");
-            model.addObject("msg", "Employee already exists!");
+            model.addObject("ID_number", "Employee already exists!");
             return model;
         } else {
             created = employeeService.createEmployee(employee);
@@ -80,17 +80,69 @@ public class EmployeeController {
             return "Employee not created";
     }
 
-/*
-    @PostMapping(value ="/employee/update")
-    public String updateEmployee ( @RequestBody Employee employee){
-        Boolean created, created2;
-        created = employeeService.updateEmployee(employee);
-        if(created==true)
-            return "Employee updated";
-        else
-            return "Employeenot updated";
+    //To view delete screen
+    @RequestMapping(value= {"/delete_employee"}, method = RequestMethod.GET)
+    public ModelAndView viewDelete(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("employee/delete_employee");
+        return model;
     }
 
-*/
+    //To delete room
+    @RequestMapping(value= {"/delete_employee"}, method=RequestMethod.POST)
+    public ModelAndView deleteEmployee(@ModelAttribute("Employee") Employee employee, BindingResult bindingResult) {
+
+        Employee studentExists = employeeService.getEmployee(employee.getIDNumber());
+        if(studentExists == null) {
+            bindingResult.rejectValue("msg", "Employee does not exist");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("employee/delete_employee");
+            model.addObject("msg", "Employee does not exist");
+            return model;
+        }
+
+        else {
+
+            employeeService.deleteEmployee(employee.getIDNumber());
+            ModelAndView model = new ModelAndView("home/home");
+            model.addObject("msg", "Employee was deleted!");
+            return model;
+        }
+
+    }
+    //To view edit room
+    @RequestMapping(value= {"/edit_employee"}, method = RequestMethod.GET)
+    public ModelAndView viewEditRoom(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("employee/edit_employee");
+        return model;
+    }
+
+    //To update Room
+    @RequestMapping(value= {"/edit_employee"}, method=RequestMethod.POST)
+    public ModelAndView updateRoom(@ModelAttribute("Employee") Employee employee, BindingResult bindingResult) {
+        boolean result;
+        Employee roomExists = employeeService.getEmployee(employee.getIDNumber());
+        if(roomExists == null) {
+            bindingResult.rejectValue("msg", "Employee does not exist");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("employee/edit_employee");
+            model.addObject("msg", "Employee does not exist");
+            return model;
+        }
+
+        else {
+            result = employeeService.updateEmployee(employee);
+            ModelAndView model = new ModelAndView("home/home");
+            model.addObject("msg", "Employee was udated!");
+            System.out.println(result);
+            return model;
+        }
+
+    }
 
 }

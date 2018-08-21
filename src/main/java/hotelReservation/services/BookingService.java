@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface BookingService {
     public List<Booking> getAllBookings();
+    public Booking getBooking(String ID_number);
     public String createBooking(String referenceNumber, List<Room> roomList, List<ServicesAndAddOns> servicesAndAddOnsList, Date hireDate);
     public String deleteBooking(String referenceNumber);
 }

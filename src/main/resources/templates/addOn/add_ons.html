@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form=""
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Customer Details</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+    <script src="js/handleForm.js"></script>
+</head>
+<body>
+<div class="header">
+    <h2>Customer Details</h2>
+</div>
+
+<form name = "add_ons" method="post" action="add_ons">
+    <div class="input-group">
+        <label>Service number</label>
+        <input type="text" name="serv_extras_id" id="serv_extras_id" required>
+        <span th:utext="${serv_extras_id}" style="color: #a94442"></span>
+    </div>
+    <div class="input-group">
+        <label>Name of Service</label>
+        <input type="text" name="extra_name" id="extra_name"required>
+    </div>
+    <div class="input-group">
+        <label>Price of Service</label>
+        <input type="text" name="price_added"id="price_added" required>
+    </div>
+    <div class="input-group">
+        <br>
+        <button type="submit" class="btn" name="add_ons">Enter</button>        <a href="home" class="btn">back</a>
+    </div>
+</form>
+</body>
+</html>

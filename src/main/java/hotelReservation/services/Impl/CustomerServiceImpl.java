@@ -63,40 +63,6 @@ public class CustomerServiceImpl implements CustomerService {
         return gotCustomer;
     }
 
-    @Override
-    public String createCustomer(String idNumber, String firstNames, String lastName) {
-        int count = 0;
-        boolean blnCreateCustomer = false;
-
-
-        Iterable<Customer> customers = repositoryCustomer.findAll();
-        for (Customer customer : customers) {
-            if (customer.getIDNumber().equals(idNumber))
-            {
-                count = count + 1;
-
-            }
-
-        }
-
-        if (count == 0)
-        {
-
-            Customer newCustomer = CustomerFactory.createCustomer(idNumber, firstNames, lastName);
-            repositoryCustomer.save(newCustomer);
-
-            blnCreateCustomer = true;
-        }
-        else
-        {
-            blnCreateCustomer =false;
-        }
-
-        if(blnCreateCustomer==true)
-            return "Customer created";
-        else
-            return "Customer not created";
-    }
 
     @Override
     public String updateCustomer(Customer customerNewDetails) {

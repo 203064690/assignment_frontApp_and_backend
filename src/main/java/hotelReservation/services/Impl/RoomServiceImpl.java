@@ -26,19 +26,50 @@ public class RoomServiceImpl implements RoomService {
         List<Room> allRooms = new ArrayList<Room>();
 
         Iterable<Room> rooms = repositoryRoom.findAll();
-        for (Room user : rooms) {
-            allRooms.add(user);
+        for (Room room : rooms) {
+            allRooms.add(room);
         }
         return allRooms;
     }
 
     @Override
-    public boolean createRoom(int roomNumber, String roomType, String roomView, double roomPrice) {
+    public Room getRoom(int roomNumber) {
+        String strUserLogIn = "";
+        String strRoom = "";
+        int countRoom = 0;
+        Room gotRoom = null;
+
+        Iterable<Room> rooms = repositoryRoom.findAll();
+        for (Room room : rooms) {
+            if (room.getRoomNumber()== roomNumber)
+            {
+                countRoom = countRoom + 1;
+                gotRoom= room;
+            }
+
+        }
+        if (countRoom != 0)
+        {
+            strRoom = "Room: Found";
+        }
+        else
+        {
+            strRoom = "Room: Not Found";
+        }
+
+
+        strUserLogIn = strRoom + "\n";
+
+        return gotRoom;
+    }
+
+    @Override
+    public boolean createRoom(Room newRoom) {
         int count = 0;
         boolean blnCreateRoom;
         Iterable<Room> rooms = repositoryRoom.findAll();
         for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNumber)
+            if (room.getRoomNumber() == newRoom.getRoomNumber())
             {
                 count = count + 1;
             }
@@ -46,7 +77,7 @@ public class RoomServiceImpl implements RoomService {
 
         if (count == 0)
         {
-            Room room = RoomFactory.createRoom(roomNumber, roomType, roomView, roomPrice);
+            Room room = RoomFactory.createRoom(newRoom.getRoomNumber(), newRoom.getRoomType(), newRoom.getRoomView(), newRoom.getRoomPrice());
             repositoryRoom.save(room);
             blnCreateRoom = true;
         }
@@ -65,7 +96,7 @@ public class RoomServiceImpl implements RoomService {
         Room rommUpdate = null;
         Iterable<Room> rooms = repositoryRoom.findAll();
         for (Room room : rooms) {
-            if (room.getRoomNumber() == roomNew.getRoomNumber())
+            if (room.getRoomNumber()== roomNew.getRoomNumber())
             {
                 blnRoomUpdate = true;
                 ID = room.getID();

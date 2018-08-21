@@ -86,29 +86,52 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean updateEmployee(Employee employeeNew) {
-        boolean blnUpdateEmployee= false;
-        Long employeeID = 0L;
+        boolean blnEmployeeUpdate = false;
+        Long ID = 0L;
         Employee employeeUpdate = null;
-
         Iterable<Employee> employees = repositoryEmployee.findAll();
         for (Employee employee : employees) {
-            if (employee.getIDNumber().equalsIgnoreCase(employeeNew.getIDNumber()))
+            if (employee.getIDNumber().equals(employeeNew.getIDNumber()))
             {
-                employeeID = employee.getID();
+                blnEmployeeUpdate = true;
+                ID = employee.getID();
                 employeeUpdate = employee;
-                blnUpdateEmployee = true;
             }
         }
 
-        if (blnUpdateEmployee == true)
+        if (blnEmployeeUpdate == true)
         {
-            Employee newEmployee = new Employee.Builder(employeeUpdate.getIDNumber())
-                    .ID(employeeID)
-                    .employee_firstnames("John")
-                    .employee_lastname("Dave")
+            Employee newRoom = new Employee.Builder(employeeUpdate.getIDNumber())
+                    .ID(ID)
+                    .employee_firstnames(employeeNew.getFirstnames())
+                    .employee_lastname(employeeNew.getLastname())
+                    .hire_date(employeeNew.getHireDate())
                     .build();
-            repositoryEmployee.save(newEmployee);
+            repositoryEmployee.save(newRoom);
         }
-        return blnUpdateEmployee;
+
+        return blnEmployeeUpdate;
     }
+
+    @Override
+    public boolean deleteEmployee(String employeeNumber) {
+        boolean blnRoomDelete = false;
+        Long ID = 0L;
+        Iterable<Employee> employees = repositoryEmployee.findAll();
+        for (Employee employee : employees) {
+            if (employee.getIDNumber().equalsIgnoreCase(employeeNumber))
+            {
+                blnRoomDelete = true;
+                ID = employee.getID();
+            }
+        }
+
+        if (blnRoomDelete == true)
+        {
+            repositoryEmployee.deleteById(ID);
+        }
+
+        return blnRoomDelete;
+    }
+
 }

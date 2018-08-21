@@ -42,6 +42,13 @@ public class UserController
 
         return model;
     }
+    @RequestMapping(value= {"/home"}, method=RequestMethod.GET)
+    public ModelAndView home() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("home/home");
+
+        return model;
+    }
 
     @RequestMapping(value= {"/login"}, method=RequestMethod.POST)
     public ModelAndView register(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {

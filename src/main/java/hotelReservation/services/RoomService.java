@@ -12,7 +12,8 @@ import java.util.List;
  */
 public interface RoomService {
     public List<Room> getAllRooms();
-    public boolean createRoom(int roomNumber, String roomType, String roomView, double roomPrice);
+    public Room getRoom(int roomNumber);
+    public boolean createRoom(Room room);
     public boolean updateRoom(Room room);
     public boolean deleteRoom(int roomNumber);
 }
