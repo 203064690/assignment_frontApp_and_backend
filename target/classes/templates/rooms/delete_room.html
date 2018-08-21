@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form=""
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+</head>
+<body>
+<div class="header">
+    <h2>Room details</h2>
+</div>
+
+<form name = "delete_room" method="POST" action="delete_room">
+    <div class="input-group">
+        <label>Enter Student</label>
+        <input type="text" name="room_number" id="room_number" placeholder="Room no..." required>
+        <span th:utext="${msg}" style="color: #a94442"></span>
+    </div>
+    <div class="input-group">
+        <button type="submit" class="btn" name="delete_student">Enter</button>
+    </div>
+    <div class="input-group">
+        <br>
+        <a href="home" class="btn">Back</a>
+    </div>
+</form>
+</body>
+</html>

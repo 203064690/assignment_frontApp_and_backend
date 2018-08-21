@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form="" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Customer Details</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+
+</head>
+<body>
+<div class="header">
+    <h2>Rooms</h2>
+</div>
+
+<form name="add_room" method="post" action="/add_room">
+    <div class="input-group">
+        <label>Room Number</label>
+        <input type="text" name="room_number" id="room_number" required>
+        <span th:utext="${room_number}" style="color: #a94442"></span>
+    </div>
+    <div class="input-group">
+        <label>Room Type</label>
+        <input type="text" name="room_type" id="room_type" required>
+    </div>
+    <div class="input-group">
+        <label>Room View</label>
+        <input type="text" name="room_view" id="room_view"required>
+    </div>
+    <div class="input-group">
+        <label>Room Price</label>
+        <input type="text" name="room_price"id="room_price" required>
+    </div>
+    <div class="input-group">
+        <br>
+        <button type="submit" class="btn" name="roombtn">Register</button>        <a href="home" class="btn">back</a>
+    </div>
+</form>
+</body>
+</html>
